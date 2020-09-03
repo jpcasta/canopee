@@ -210,11 +210,15 @@ void callback(char* topic, byte* payload, unsigned int length) {
 void gestionActionneur (String actionneur, String niveau) {
 
   if (actionneur == "5C:CF:7F:E7:05:4B" ||
-      actionneur == "5C:CF:7F:AF:93:1E") {
+      actionneur == "5C:CF:7F:AF:93:1E" ||
+	  actionneur == "2C:F4:32:A8:72:EB") {
     Serial.println("Actionneur bon");
-    if (niveau == String ("Bon"))
+    if (niveau == String ("Bon")) {
       digitalWrite (pinRelais, HIGH);          // relais fermé
-    //clignote(pinRelais);
+      delay (3000);                            // Ajout délai pour éteindre les lampes
+      digitalWrite (pinRelais, LOW);
+      //clignote(pinRelais,0);
+      }
     else
       digitalWrite (pinRelais, LOW);          // relais ouvert
 
@@ -222,9 +226,12 @@ void gestionActionneur (String actionneur, String niveau) {
   if (actionneur == "5C:CF:7F:AF:9C:B2" ||
       actionneur == "C4:4F:33:B3:83:6F"  ) {
     Serial.println("Actionneur Nul");
-    if (niveau == String ("Nul"))
+    if (niveau == String ("Nul")) {
       digitalWrite (pinRelais, HIGH);          // relais fermé
-    //clignote(pinRelais);
+      delay (3000);                            // Ajout délai pour éteindre les lampes
+      digitalWrite (pinRelais, LOW);
+      //clignote(pinRelais,0);
+    }
     else
       digitalWrite (pinRelais, LOW);          // relais ouvert
   }
